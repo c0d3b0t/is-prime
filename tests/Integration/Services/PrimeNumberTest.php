@@ -35,7 +35,7 @@ class PrimeNumberTest extends TestCase
         $this->assertEquals("YES, and we already told you so!", $response->getMessage());
         $this->assertEquals(2, $response->getData()['count']);
 
-        for($i = 0; $i <= 8; $i++)
+        for($i = 0; $i < 9; $i++)
         {
             $response = $this->service->store($number);
         }

@@ -25,7 +25,7 @@ class NumbersController extends Controller
      */
     public function isPrime(Request $request): JsonResponse
     {
-        $response = $this->service->handlePrimeResponse($request->input('number'));
+        $response = $this->service->store($request->input('number'));
 
         return response()->json($response->getArray(), $response->getStatusCode());
     }

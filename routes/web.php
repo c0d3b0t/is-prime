@@ -16,5 +16,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/is-prime/{number}', [\App\Http\Controllers\NumbersController::class, 'isPrime'])->name('isPrime');

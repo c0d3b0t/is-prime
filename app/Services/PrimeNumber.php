@@ -98,7 +98,9 @@ class PrimeNumber
 
         $isPrime = $this->isPrime($number);
 
-        if($model->getCount() >= 10)
+        $count = $model->getCount() + 1;
+
+        if($count > 10)
         {
             $response->setStatusCode(403); // Forbidden
             $message = "You're insane, we don't want to answer anymore.";
@@ -108,10 +110,8 @@ class PrimeNumber
             $response->setStatusCode(200);
             $answer = $this->isPrime($number) ? 'YES' : 'No';
             $message = "{$answer}, and we already told you so";
-            $message .= $model->getCount() >= 2 ? " {$model->getCount()} times!" : '!';
+            $message .= $count > 2 ? " {$count} times!" : '!';
         }
-
-        $count = $model->getCount() + 1;
 
         $this->repo->updateByNumber([
             'number'   => $number,
