@@ -48,7 +48,7 @@ class PrimeNumber
      * @param $number
      * @return Response
      */
-    public function handlePrime($number): Response
+    public function handlePrimeResponse($number): Response
     {
         $response = new Response();
 

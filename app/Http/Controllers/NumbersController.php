@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\PrimeNumber;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class NumbersController extends Controller
@@ -18,9 +19,13 @@ class NumbersController extends Controller
         $this->service = $primeNumber;
     }
 
-    public function isPrime(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function isPrime(Request $request): JsonResponse
     {
-        $response = $this->service->handlePrime($request->input('number'));
+        $response = $this->service->handlePrimeResponse($request->input('number'));
 
         return response()->json($response->getArray(), $response->getStatusCode());
     }
