@@ -4,6 +4,7 @@ namespace Tests\Integration\Repositories;
 
 use App\Models\RequestedNumber;
 use App\Repositories\RequestedNumbersRepository;
+use App\Services\NumbersRange;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -52,11 +53,32 @@ class RequestedNumbersRepositoryTest extends TestCase
 
         $data['count'] = 3;
 
-       $this->repo->updateByNumber($data);
-
+        $this->repo->updateByNumber($data);
 
         $model = $this->repo->getByNumber($number);
 
         $this->assertEquals(3, $model->getCount());
+    }
+
+    public function testGetByRange()
+    {
+        $items = [
+            ['number' => 13, 'count' => 4, 'is_prime' => true],
+            ['number' => 8, 'count' => 9, 'is_prime' => false],
+            ['number' => 2, 'count' => 14, 'is_prime' => true]
+        ];
+
+        foreach ($items as $item)
+        {
+            $this->repo->store($item);
+        }
+
+        $range = new NumbersRange(1, 10);
+
+        $results = $this->repo->getByRange($range);
+
+        $this->assertCount(2, $results);
+        $this->assertEquals(2, $results[0]['number']);
+        $this->assertEquals(8, $results[1]['number']);
     }
 }

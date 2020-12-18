@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Models\RequestedNumber;
+use App\Services\NumbersRange;
+use Illuminate\Support\Collection;
 
 class RequestedNumbersRepository
 {
@@ -45,5 +47,18 @@ class RequestedNumbersRepository
     public function updateByNumber(array $data): int
     {
         return $this->model->where('number', $data['number'])->update($data);
+    }
+
+    /**
+     * @param NumbersRange $range
+     * @return Collection
+     */
+    public function getByRange(NumbersRange $range): Collection
+    {
+        return $this->model
+            ->where('number', '>=', $range->getFrom())
+            ->where('number', '<=', $range->getTo())
+            ->orderBy('number', 'ASC')
+            ->get();
     }
 }
