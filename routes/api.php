@@ -19,5 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/is-prime/', [NumbersController::class, 'isPrime'])->name('numbers.is_prime');
-Route::get('/primes/range/', [NumbersController::class, 'getPrimesByRange'])->name('numbers.primes_by_range');
+Route::prefix('numbers')->group(function() {
+    Route::post('/is-prime/', [NumbersController::class, 'isPrime'])->name('numbers.is_prime');
+    Route::get('/prime-range/', [NumbersController::class, 'getPrimesByRange'])->name('numbers.primes_by_range');
+    Route::get('/all-range/', [NumbersController::class, 'getAllByRange'])->name('numbers.primes_by_range');
+});

@@ -37,10 +37,22 @@ class NumbersController extends Controller
      * @param GetPrimesByRangeRequest $request
      * @return JsonResponse
      */
+    public function getAllByRange(GetPrimesByRangeRequest $request): JsonResponse
+    {
+        $range    = new NumbersRange($request->input('from'), $request->input('to'));
+        $response = $this->primeNumber->getAllByRange($range);
+
+        return response()->json($response->getArray(), $response->getStatusCode());
+    }
+
+    /**
+     * @param GetPrimesByRangeRequest $request
+     * @return JsonResponse
+     */
     public function getPrimesByRange(GetPrimesByRangeRequest $request): JsonResponse
     {
         $range    = new NumbersRange($request->input('from'), $request->input('to'));
-        $response = $this->primeNumber->getByRange($range);
+        $response = $this->primeNumber->getPrimesByRange($range);
 
         return response()->json($response->getArray(), $response->getStatusCode());
     }

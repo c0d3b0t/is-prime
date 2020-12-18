@@ -75,9 +75,15 @@ class RequestedNumbersRepositoryTest extends TestCase
 
         $range = new NumbersRange(1, 10);
 
-        $results = $this->repo->getPrimesByRange($range);
+        $results = $this->repo->getByRange($range, hasPrimesOnly: true);
 
         $this->assertCount(1, $results);
         $this->assertEquals(2, $results[0]['number']);
+
+        $results = $this->repo->getByRange($range, hasPrimesOnly: false);
+
+        $this->assertCount(2, $results);
+        $this->assertEquals(2, $results[0]['number']);
+        $this->assertEquals(8, $results[1]['number']);
     }
 }

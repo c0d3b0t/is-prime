@@ -136,9 +136,22 @@ class PrimeNumber
      * @param NumbersRange $range
      * @return Response
      */
-    public function getByRange(NumbersRange $range): Response
+    public function getAllByRange(NumbersRange $range): Response
     {
-        $numbers = $this->repo->getPrimesByRange($range);
+        $numbers = $this->repo->getByRange($range, hasPrimesOnly: false);
+
+        return $this->response
+            ->setStatusCode(200)
+            ->setData(['numbers' => $numbers]);
+    }
+
+    /**
+     * @param NumbersRange $range
+     * @return Response
+     */
+    public function getPrimesByRange(NumbersRange $range): Response
+    {
+        $numbers = $this->repo->getByRange($range, hasPrimesOnly: true);
 
         return $this->response
             ->setStatusCode(200)

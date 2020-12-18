@@ -55,7 +55,7 @@ class PrimeNumberTest extends TestCase
     {
         $range = new NumbersRange(1, 10);
 
-        $response = $this->service->getByRange($range);
+        $response = $this->service->getPrimesByRange($range);
         $data     = $response->getData();
 
         $this->assertEquals(200, $response->getStatusCode());

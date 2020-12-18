@@ -51,15 +51,21 @@ class RequestedNumbersRepository
 
     /**
      * @param NumbersRange $range
+     * @param bool $hasPrimesOnly
      * @return Collection
      */
-    public function getPrimesByRange(NumbersRange $range): Collection
+    public function getByRange(NumbersRange $range, bool $hasPrimesOnly = false): Collection
     {
-        return $this->model
+        $query = $this->model
             ->where('number', '>=', $range->getFrom())
-            ->where('number', '<=', $range->getTo())
-            ->where('is_prime', true)
-            ->orderBy('number', 'ASC')
+            ->where('number', '<=', $range->getTo());
+
+        if($hasPrimesOnly)
+        {
+            $query = $query->where('is_prime', true);
+        }
+
+        return $query->orderBy('number', 'ASC')
             ->get();
     }
 }
