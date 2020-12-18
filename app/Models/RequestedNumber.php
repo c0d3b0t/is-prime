@@ -33,4 +33,12 @@ class RequestedNumber extends Model
     {
         return $this->count;
     }
+
+    /**
+     * @return bool
+     */
+    public function isPrime(): bool
+    {
+        return $this->is_prime;
+    }
 }

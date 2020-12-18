@@ -113,7 +113,7 @@ class PrimeNumber
 
         $count = $model->getCount() + 1;
 
-        $this->repo->update([
+        $this->repo->updateByNumber([
             'number'   => $number,
             'count'    => $count,
             'is_prime' => $isPrime

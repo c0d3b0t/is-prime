@@ -21,6 +21,15 @@ class RequestedNumbersRepository
     }
 
     /**
+     * @param int $number
+     * @return RequestedNumber|null
+     */
+    public function getByNumber(int $number): ?RequestedNumber
+    {
+        return $this->model->where('number', $number)->first();
+    }
+
+    /**
      * @param array $data
      * @return RequestedNumber
      */
@@ -33,17 +42,8 @@ class RequestedNumbersRepository
      * @param array $data
      * @return int
      */
-    public function update(array $data): int
+    public function updateByNumber(array $data): int
     {
         return $this->model->where('number', $data['number'])->update($data);
-    }
-
-    /**
-     * @param int $number
-     * @return RequestedNumber|null
-     */
-    public function getByNumber(int $number): ?RequestedNumber
-    {
-        return $this->model->where('number', $number)->first();
     }
 }
