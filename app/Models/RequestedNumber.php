@@ -21,6 +21,6 @@ class RequestedNumber extends Model
 
     public function getCount(): ?int
     {
-        return $this->number;
+        return $this->count;
     }
 }
