@@ -39,8 +39,10 @@ services:
             MYSQL_USER: '${DB_USERNAME}'
             MYSQL_PASSWORD: '${DB_PASSWORD}'
             MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+        command: --init-file /var/www/scripts/init.sql
         volumes:
             - 'sailmysql:/var/lib/mysql'
+            - ./scripts/init.sql:/var/www/scripts/init.sql
         networks:
             - sail
     redis:
