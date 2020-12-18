@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NumbersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,4 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/is-prime/', [\App\Http\Controllers\NumbersController::class, 'isPrime'])->name('isPrime');
+Route::post('/is-prime/', [NumbersController::class, 'isPrime'])->name('numbers.is_prime');
+Route::get('/primes/range/', [NumbersController::class, 'getPrimesByRange'])->name('numbers.primes_by_range');
