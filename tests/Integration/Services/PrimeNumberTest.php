@@ -6,7 +6,6 @@ use App\Models\RequestedNumber;
 use App\Repositories\RequestedNumbersRepository;
 use App\Services\PrimeNumber;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class PrimeNumberTest extends TestCase
@@ -14,14 +13,12 @@ class PrimeNumberTest extends TestCase
     use DatabaseMigrations;
 
     private PrimeNumber $service;
-    private RequestedNumbersRepository $repo;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->repo    = new RequestedNumbersRepository(new RequestedNumber());
-        $this->service = new PrimeNumber($this->repo);
+        $this->service = new PrimeNumber(new RequestedNumbersRepository(new RequestedNumber()));
     }
 
     public function testStore()
