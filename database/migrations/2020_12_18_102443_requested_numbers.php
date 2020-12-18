@@ -13,7 +13,7 @@ class RequestedNumbers extends Migration
      */
     public function up()
     {
-        Schema::table('requested_numbers', function (Blueprint $table) {
+        Schema::create('requested_numbers', function (Blueprint $table) {
             $table->unsignedBigInteger('number');
             $table->unsignedBigInteger('count');
             $table->boolean('is_prime');
@@ -21,6 +21,7 @@ class RequestedNumbers extends Migration
             $table->index('number');
             $table->index('count');
             $table->index('is_prime');
+            $table->timestamps();
         });
     }
 

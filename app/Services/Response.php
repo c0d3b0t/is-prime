@@ -7,7 +7,7 @@ class Response
     /**
      * @var int
      */
-    private int $code;
+    private int $statusCode;
 
     /**
      * @var string
@@ -15,11 +15,16 @@ class Response
     private string $message;
 
     /**
+     * @var array
+     */
+    private array $data = [];
+
+    /**
      * @return int
      */
     public function getStatusCode(): int
     {
-        return $this->code;
+        return $this->statusCode;
     }
 
     /**
@@ -28,7 +33,7 @@ class Response
      */
     public function setStatusCode(int $code): Response
     {
-        $this->code = $code;
+        $this->statusCode = $code;
         return $this;
     }
 
@@ -53,11 +58,32 @@ class Response
     /**
      * @return array
      */
+    public function getData(): array
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param array $data
+     * @return Response
+     */
+    public function setData(array $data): Response
+    {
+        $this->data = $data;
+        return $this;
+    }
+
+
+
+    /**
+     * @return array
+     */
     public function getArray(): array
     {
         return [
-            'status' => $this->getStatusCode(),
-            'message' => $this->getMessage()
+            'status_code' => $this->getStatusCode(),
+            'message'     => $this->getMessage(),
+            'data'        => $this->getData()
         ];
     }
 }
