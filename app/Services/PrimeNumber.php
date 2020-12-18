@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\RequestedNumber;
 use App\Repositories\RequestedNumbersRepository;
-use Illuminate\Http\Request;
 
 class PrimeNumber
 {
@@ -14,12 +13,19 @@ class PrimeNumber
     private RequestedNumbersRepository $repo;
 
     /**
+     * @var Response
+     */
+    private Response $response;
+
+    /**
      * PrimeNumber constructor.
      * @param RequestedNumbersRepository $repo
+     * @param Response $response
      */
-    public function __construct(RequestedNumbersRepository $repo)
+    public function __construct(RequestedNumbersRepository $repo, Response $response)
     {
-        $this->repo = $repo;
+        $this->repo     = $repo;
+        $this->response = $response;
     }
 
     /**
@@ -28,16 +34,20 @@ class PrimeNumber
      */
     public function isPrime($number): bool
     {
-        if($number == 1) {
+        if($number == 1)
+        {
             return false;
         }
 
-        if($number == 2) {
+        if($number == 2)
+        {
             return true;
         }
 
-        for($i = 2; $i < $number; $i++ ) {
-            if($number % $i === 0) {
+        for($i = 2; $i < $number; $i++ )
+        {
+            if($number % $i === 0)
+            {
                 return false;
             }
         }
@@ -67,8 +77,6 @@ class PrimeNumber
      */
     public function createNew(int $number): Response
     {
-        $response = new Response();
-
         $isPrime = $this->isPrime($number);
 
         $model = $this->repo->store([
@@ -79,7 +87,7 @@ class PrimeNumber
 
         $message = $isPrime ? "Yes, {$number} IS a prime number!" : "No, {$number} IS NOT a prime number.";
 
-        return $response->setStatusCode(200)
+        return $this->response->setStatusCode(200)
             ->setMessage($message)
             ->setData([
                 'number' => $model->getNumber(),
@@ -94,21 +102,19 @@ class PrimeNumber
      */
     public function update(RequestedNumber $model, int $number): Response
     {
-        $response = new Response();
-
         $isPrime = $this->isPrime($number);
 
         $count = $model->getCount() + 1;
 
         if($count > 10)
         {
-            $response->setStatusCode(403); // Forbidden
+            $this->response->setStatusCode(403); // Forbidden
             $message = "You're insane, we don't want to answer anymore.";
         }
         else
         {
-            $response->setStatusCode(200);
-            $answer = $this->isPrime($number) ? 'YES' : 'No';
+            $this->response->setStatusCode(200);
+            $answer = $isPrime ? 'YES' : 'No';
             $message = "{$answer}, and we already told you so";
             $message .= $count > 2 ? " {$count} times!" : '!';
         }
@@ -119,10 +125,23 @@ class PrimeNumber
             'is_prime' => $isPrime
         ]);
 
-        return $response->setMessage($message)
+        return $this->response->setMessage($message)
             ->setData([
                 'number' => $number,
                 'count'  => $count
             ]);
+    }
+
+    /**
+     * @param NumbersRange $range
+     * @return Response
+     */
+    public function getByRange(NumbersRange $range): Response
+    {
+        $numbers = $this->repo->getPrimesByRange($range);
+
+        return $this->response
+            ->setStatusCode(200)
+            ->setData(['numbers' => $numbers]);
     }
 }

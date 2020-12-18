@@ -12,7 +12,7 @@ class Response
     /**
      * @var string
      */
-    private string $message;
+    private string $message = '';
 
     /**
      * @var array
@@ -72,8 +72,6 @@ class Response
         $this->data = $data;
         return $this;
     }
-
-
 
     /**
      * @return array

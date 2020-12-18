@@ -24,7 +24,8 @@ class GetPrimesByRangeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'from' => 'required|int|min:1',
+            'to'   => 'required|int|min:1'
         ];
     }
 }

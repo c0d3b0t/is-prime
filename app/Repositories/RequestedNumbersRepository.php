@@ -53,11 +53,12 @@ class RequestedNumbersRepository
      * @param NumbersRange $range
      * @return Collection
      */
-    public function getByRange(NumbersRange $range): Collection
+    public function getPrimesByRange(NumbersRange $range): Collection
     {
         return $this->model
             ->where('number', '>=', $range->getFrom())
             ->where('number', '<=', $range->getTo())
+            ->where('is_prime', true)
             ->orderBy('number', 'ASC')
             ->get();
     }

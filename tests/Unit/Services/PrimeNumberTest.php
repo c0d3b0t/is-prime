@@ -5,6 +5,7 @@ namespace Tests\Unit\Services;
 use App\Models\RequestedNumber;
 use App\Repositories\RequestedNumbersRepository;
 use App\Services\PrimeNumber;
+use App\Services\Response;
 use PHPUnit\Framework\TestCase;
 
 class PrimeNumberTest extends TestCase
@@ -16,11 +17,12 @@ class PrimeNumberTest extends TestCase
      */
     public function testIsPrime()
     {
-        $service = new PrimeNumber(new RequestedNumbersRepository(new RequestedNumber()));
+        $service = new PrimeNumber(new RequestedNumbersRepository(new RequestedNumber()), new Response());
+
         $this->assertTrue($service->isPrime(2));
+        $this->assertTrue($service->isPrime(7));
         $this->assertFalse($service->isPrime(1));
         $this->assertFalse($service->isPrime(4));
         $this->assertFalse($service->isPrime(8));
-        $this->assertTrue($service->isPrime(7));
     }
 }

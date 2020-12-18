@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\GetPrimesByRangeRequest;
 use App\Http\Requests\IsPrimeRequest;
+use App\Services\NumbersRange;
 use App\Services\PrimeNumber;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -38,7 +39,8 @@ class NumbersController extends Controller
      */
     public function getPrimesByRange(GetPrimesByRangeRequest $request): JsonResponse
     {
-        $response = $this->primeNumber->getByRange($request->input('from'), $request->input('to'));
+        $range    = new NumbersRange($request->input('from'), $request->input('to'));
+        $response = $this->primeNumber->getByRange($range);
 
         return response()->json($response->getArray(), $response->getStatusCode());
     }

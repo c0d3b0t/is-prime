@@ -4,7 +4,10 @@ namespace Tests\Integration\Services;
 
 use App\Models\RequestedNumber;
 use App\Repositories\RequestedNumbersRepository;
+use App\Services\NumbersRange;
 use App\Services\PrimeNumber;
+use App\Services\Response;
+use Illuminate\Support\Collection;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 
@@ -18,7 +21,10 @@ class PrimeNumberTest extends TestCase
     {
         parent::setUp();
 
-        $this->service = new PrimeNumber(new RequestedNumbersRepository(new RequestedNumber()));
+        $this->service = new PrimeNumber(
+            new RequestedNumbersRepository(new RequestedNumber()),
+            new Response()
+        );
     }
 
     public function testStore()
@@ -43,5 +49,17 @@ class PrimeNumberTest extends TestCase
         $this->assertEquals(403, $response->getStatusCode());
         $this->assertEquals("You're insane, we don't want to answer anymore.", $response->getMessage());
         $this->assertEquals(11, $response->getData()['count']);
+    }
+
+    public function testGetByRange()
+    {
+        $range = new NumbersRange(1, 10);
+
+        $response = $this->service->getByRange($range);
+        $data     = $response->getData();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertArrayHasKey('numbers', $data);
+        $this->assertInstanceOf(Collection::class, $data['numbers'] );
     }
 }
