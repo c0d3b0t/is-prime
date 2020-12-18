@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GetPrimesByRangeRequest;
+use App\Http\Requests\IsPrimeRequest;
 use App\Services\PrimeNumber;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class NumbersController extends Controller
 {
-    private PrimeNumber $service;
+    private PrimeNumber $primeNumber;
 
     /**
      * NumbersController constructor.
@@ -16,16 +18,27 @@ class NumbersController extends Controller
      */
     public function __construct(PrimeNumber $primeNumber)
     {
-        $this->service = $primeNumber;
+        $this->primeNumber = $primeNumber;
     }
 
     /**
-     * @param Request $request
+     * @param IsPrimeRequest $request
      * @return JsonResponse
      */
-    public function isPrime(Request $request): JsonResponse
+    public function isPrime(IsPrimeRequest $request): JsonResponse
     {
-        $response = $this->service->store($request->input('number'));
+        $response = $this->primeNumber->store($request->input('number'));
+
+        return response()->json($response->getArray(), $response->getStatusCode());
+    }
+
+    /**
+     * @param GetPrimesByRangeRequest $request
+     * @return JsonResponse
+     */
+    public function getPrimesByRange(GetPrimesByRangeRequest $request): JsonResponse
+    {
+        $response = $this->primeNumber->getByRange($request->input('from'), $request->input('to'));
 
         return response()->json($response->getArray(), $response->getStatusCode());
     }
