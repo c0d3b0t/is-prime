@@ -31,6 +31,8 @@ class PrimeNumber
     /**
      * @param $number
      * @return bool
+     *
+     * @todo: optimize for big numbers
      */
     public function isPrime($number): bool
     {
