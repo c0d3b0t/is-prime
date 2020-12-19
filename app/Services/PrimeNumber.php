@@ -10,22 +10,33 @@ class PrimeNumber
     /**
      * @var RequestedNumbersRepository
      */
-    private RequestedNumbersRepository $repo;
+    private RequestedNumbersRepository $numbersRepo;
 
     /**
      * @var HttpResponse
      */
-    private HttpResponse $response;
+    private HttpResponse $httpResponse;
+
+    /**
+     * @var ResponseMessage
+     */
+    private ResponseMessage $responseMessage;
 
     /**
      * PrimeNumber constructor.
-     * @param RequestedNumbersRepository $repo
-     * @param HttpResponse $response
+     * @param RequestedNumbersRepository $numbersRepo
+     * @param HttpResponse $httpResponse
+     * @param ResponseMessage $responseMessage
      */
-    public function __construct(RequestedNumbersRepository $repo, HttpResponse $response)
+    public function __construct(
+        RequestedNumbersRepository $numbersRepo,
+        HttpResponse $httpResponse,
+        ResponseMessage $responseMessage
+    )
     {
-        $this->repo     = $repo;
-        $this->response = $response;
+        $this->numbersRepo     = $numbersRepo;
+        $this->httpResponse    = $httpResponse;
+        $this->responseMessage = $responseMessage;
     }
 
     /**
@@ -63,7 +74,7 @@ class PrimeNumber
      */
     public function store(int $number): HttpResponse
     {
-        $model = $this->repo->getByNumber($number);
+        $model = $this->numbersRepo->getByNumber($number);
 
         if(!$model)
         {
@@ -81,16 +92,16 @@ class PrimeNumber
     {
         $isPrime = $this->isPrime($number);
 
-        $model = $this->repo->store([
+        $model = $this->numbersRepo->store([
             'number'   => $number,
             'count'    => 1,
             'is_prime' => $isPrime
         ]);
 
-        $message = $isPrime ? "Yes, {$number} IS a prime number!" : "No, {$number} IS NOT a prime number.";
+        $this->responseMessage->setLevel($isPrime ? ResponseMessage::SUCCESS_LEVEL_ONE : ResponseMessage::FAIL_LEVEL_ONE);
 
-        return $this->response->setStatusCode(201)
-            ->setMessage($message)
+        return $this->httpResponse->setStatusCode(201)
+            ->setMessage($this->responseMessage->getMessage())
             ->setData([
                 'number' => $model->getNumber(),
                 'count'  => $model->getCount()
@@ -110,24 +121,25 @@ class PrimeNumber
 
         if($count > 10)
         {
-            $this->response->setStatusCode(403); // Forbidden
-            $message = "You're insane, we don't want to answer anymore.";
+            $this->httpResponse->setStatusCode(403); // Forbidden
+
+            $this->responseMessage->setLevel(ResponseMessage::RAGE);
         }
         else
         {
-            $this->response->setStatusCode(200);
-            $answer = $isPrime ? 'YES' : 'No';
-            $message = "{$answer}, and we already told you so";
-            $message .= $count > 2 ? " {$count} times!" : '!';
+            $this->httpResponse->setStatusCode(200);
+            $this->responseMessage->setLevel(
+                $isPrime ? ResponseMessage::SUCCESS_LEVEL_TWO : ResponseMessage::FAIL_LEVEL_TWO
+            );
         }
 
-        $this->repo->updateByNumber([
+        $this->numbersRepo->updateByNumber([
             'number'   => $number,
             'count'    => $count,
             'is_prime' => $isPrime
         ]);
 
-        return $this->response->setMessage($message)
+        return $this->httpResponse->setMessage($this->responseMessage->getMessage())
             ->setData([
                 'number' => $number,
                 'count'  => $count
@@ -140,9 +152,9 @@ class PrimeNumber
      */
     public function getAllByRange(NumbersRange $range): HttpResponse
     {
-        $numbers = $this->repo->getByRange($range, hasPrimesOnly: false);
+        $numbers = $this->numbersRepo->getByRange($range, hasPrimesOnly: false);
 
-        return $this->response
+        return $this->httpResponse
             ->setStatusCode(200)
             ->setData(['numbers' => $numbers]);
     }
@@ -153,9 +165,9 @@ class PrimeNumber
      */
     public function getPrimesByRange(NumbersRange $range): HttpResponse
     {
-        $numbers = $this->repo->getByRange($range, hasPrimesOnly: true);
+        $numbers = $this->numbersRepo->getByRange($range, hasPrimesOnly: true);
 
-        return $this->response
+        return $this->httpResponse
             ->setStatusCode(200)
             ->setData(['numbers' => $numbers]);
     }

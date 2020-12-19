@@ -7,6 +7,7 @@ use App\Repositories\RequestedNumbersRepository;
 use App\Services\NumbersRange;
 use App\Services\PrimeNumber;
 use App\Services\HttpResponse;
+use App\Services\ResponseMessage;
 use Illuminate\Support\Collection;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
@@ -23,22 +24,25 @@ class PrimeNumberTest extends TestCase
 
         $this->service = new PrimeNumber(
             new RequestedNumbersRepository(new RequestedNumber()),
-            new HttpResponse()
+            new HttpResponse(),
+            new ResponseMessage()
         );
     }
 
     public function testStore()
     {
+        // Test with prime number
+
         $number   = 7;
         $response = $this->service->store($number);
 
         $this->assertEquals(201, $response->getStatusCode());
-        $this->assertEquals("Yes, {$number} IS a prime number!", $response->getMessage());
+        $this->assertEquals(ResponseMessage::SUCCESS_LEVEL_ONE_MESSAGE, $response->getMessage());
         $this->assertEquals(1, $response->getData()['count']);
 
         $response = $this->service->store($number);
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals("YES, and we already told you so!", $response->getMessage());
+        $this->assertEquals(ResponseMessage::SUCCESS_LEVEL_TWO_MESSAGE, $response->getMessage());
         $this->assertEquals(2, $response->getData()['count']);
 
         for($i = 0; $i < 9; $i++)
@@ -47,7 +51,31 @@ class PrimeNumberTest extends TestCase
         }
 
         $this->assertEquals(403, $response->getStatusCode());
-        $this->assertEquals("You're insane, we don't want to answer anymore.", $response->getMessage());
+        $this->assertEquals(ResponseMessage::RAGE_MESSAGE, $response->getMessage());
+        $this->assertEquals(11, $response->getData()['count']);
+
+        // Test with non-prime number
+
+        $number = 8;
+
+        $response = $this->service->store($number);
+
+        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertEquals(ResponseMessage::FAIL_LEVEL_ONE_MESSAGE, $response->getMessage());
+        $this->assertEquals(1, $response->getData()['count']);
+
+        $response = $this->service->store($number);
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(ResponseMessage::FAIL_LEVEL_TWO_MESSAGE, $response->getMessage());
+        $this->assertEquals(2, $response->getData()['count']);
+
+        for($i = 0; $i < 9; $i++)
+        {
+            $response = $this->service->store($number);
+        }
+
+        $this->assertEquals(403, $response->getStatusCode());
+        $this->assertEquals(ResponseMessage::RAGE_MESSAGE, $response->getMessage());
         $this->assertEquals(11, $response->getData()['count']);
     }
 

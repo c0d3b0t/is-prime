@@ -12,7 +12,7 @@ class ResponseMessage
 
     const SUCCESS_LEVEL_ONE_MESSAGE = 'Yes, it is a prime number.';
     const SUCCESS_LEVEL_TWO_MESSAGE = 'YES, and we already told you so!';
-    const FAIL_LEVEL_ONE_MESSAGE    = 'No, it is a prime number.';
+    const FAIL_LEVEL_ONE_MESSAGE    = 'No, it is NOT a prime number.';
     const FAIL_LEVEL_TWO_MESSAGE    = 'NO, and we already told you so!';
     const RAGE_MESSAGE              = "You're insane, we don't want to answer anymore.";
 
