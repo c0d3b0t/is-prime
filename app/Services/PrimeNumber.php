@@ -119,7 +119,7 @@ class PrimeNumber
 
         $count = $model->getCount() + 1;
 
-        if($count > 10)
+        if($count > ResponseMessage::RAGE_STEP)
         {
             $this->httpResponse->setStatusCode(403); // Forbidden
 

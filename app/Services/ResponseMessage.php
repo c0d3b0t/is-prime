@@ -16,6 +16,8 @@ class ResponseMessage
     const FAIL_LEVEL_TWO_MESSAGE    = 'NO, and we already told you so!';
     const RAGE_MESSAGE              = "You're insane, we don't want to answer anymore.";
 
+    const RAGE_STEP = 10;
+
     /**
      * @var int
      */

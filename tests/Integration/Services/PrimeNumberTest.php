@@ -45,7 +45,7 @@ class PrimeNumberTest extends TestCase
         $this->assertEquals(ResponseMessage::SUCCESS_LEVEL_TWO_MESSAGE, $response->getMessage());
         $this->assertEquals(2, $response->getData()['count']);
 
-        for($i = 0; $i < 9; $i++)
+        for($i = 0; $i < ResponseMessage::RAGE_STEP-1; $i++)
         {
             $response = $this->service->store($number);
         }
