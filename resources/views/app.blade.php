@@ -38,14 +38,14 @@
             @endif
 
             <div id="app">
-                <h1 class="text-center mt-4 mb-4">Prime Checker</h1>
+                <h1 class="text-center mt-4 mb-4">Is Prime</h1>
                 <hr>
                 <div class="container">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-md-6 col-12">
                             <is-prime-form></is-prime-form>
                         </div>
-                        <div class="col">
+                        <div class="col-md-6 col-12">
                             <numbers-range-form></numbers-range-form>
                         </div>
                     </div>
