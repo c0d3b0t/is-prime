@@ -37848,7 +37848,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(result.count))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(result.is_prime))])
+                  _c("td", [_vm._v(_vm._s(result.is_prime ? "True" : "False"))])
                 ])
               }),
               0

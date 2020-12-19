@@ -29,7 +29,7 @@
                     <tr v-for="result in this.results">
                         <td>{{result.number}}</td>
                         <td>{{result.count}}</td>
-                        <td>{{result.is_prime}}</td>
+                        <td>{{result.is_prime ? 'True' : 'False'}}</td>
                     </tr>
                 </tbody>
                 <tfoot>
