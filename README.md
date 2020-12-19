@@ -1,5 +1,8 @@
 # Is Prime
 
+## Documentation
+The documentation generated with phpDocumentor is available in `.phpdoc/build` directory.
+
 ## Launch with Sail
 
 ### The .env file

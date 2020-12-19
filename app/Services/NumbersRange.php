@@ -14,6 +14,11 @@ class NumbersRange
      */
     private int $to;
 
+    /**
+     * NumbersRange constructor.
+     * @param int $from
+     * @param int $to
+     */
     public function __construct(int $from, int $to)
     {
         $this->from = $from;
