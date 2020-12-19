@@ -89,7 +89,7 @@ class PrimeNumber
 
         $message = $isPrime ? "Yes, {$number} IS a prime number!" : "No, {$number} IS NOT a prime number.";
 
-        return $this->response->setStatusCode(200)
+        return $this->response->setStatusCode(201)
             ->setMessage($message)
             ->setData([
                 'number' => $model->getNumber(),

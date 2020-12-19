@@ -32,7 +32,7 @@ class PrimeNumberTest extends TestCase
         $number   = 7;
         $response = $this->service->store($number);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(201, $response->getStatusCode());
         $this->assertEquals("Yes, {$number} IS a prime number!", $response->getMessage());
         $this->assertEquals(1, $response->getData()['count']);
 
