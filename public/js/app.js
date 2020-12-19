@@ -1921,7 +1921,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  name: "IsPrimeForm",
+  data: function data() {
+    return {
+      answer: '',
+      number: null
+    };
+  },
+  methods: {
+    isPrime: function isPrime() {
+      this.answer = "Will get an answer for number " + this.number;
+    }
+  },
   mounted: function mounted() {
     console.log('Component mounted.');
   }
@@ -1955,7 +1968,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "NumbersRangeForm"
+  name: "NumbersRangeForm",
+  data: function data() {
+    return {
+      fromNumber: null,
+      toNumber: null
+    };
+  },
+  methods: {
+    listByRange: function listByRange() {}
+  }
 });
 
 /***/ }),
@@ -37550,33 +37572,57 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("form", { attrs: { action: "" } }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col" }, [
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              type: "number",
-              min: "1",
-              placeholder: "Please enter number"
+  return _c("form", { attrs: { action: "" } }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.number,
+              expression: "number"
             }
-          })
-        ]),
+          ],
+          staticClass: "form-control",
+          attrs: {
+            type: "number",
+            min: "1",
+            placeholder: "Please enter number"
+          },
+          domProps: { value: _vm.number },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.number = $event.target.value
+            }
+          }
+        }),
         _vm._v(" "),
-        _c("div", { staticClass: "col" }, [
-          _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Submit")])
-        ])
+        this.answer.length
+          ? _c("p", { staticClass: "text-center" }, [
+              _vm._v(_vm._s(this.answer))
+            ])
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary",
+            attrs: { type: "button" },
+            on: { click: _vm.isPrime }
+          },
+          [_vm._v("Submit")]
+        )
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -37598,36 +37644,71 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("form", { attrs: { action: "" } }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col" }, [
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "number", min: "1", placeholder: "From number" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col" }, [
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "number", min: "1", placeholder: "To number" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col" }, [
-          _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Submit")])
-        ])
+  return _c("form", { attrs: { action: "" } }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.fromNumber,
+              expression: "fromNumber"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "number", min: "1", placeholder: "From number" },
+          domProps: { value: _vm.fromNumber },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.fromNumber = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.toNumber,
+              expression: "toNumber"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: { type: "number", min: "1", placeholder: "To number" },
+          domProps: { value: _vm.toNumber },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.toNumber = $event.target.value
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-primary",
+            attrs: { type: "button" },
+            on: { click: _vm.listByRange }
+          },
+          [_vm._v("Submit")]
+        )
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
