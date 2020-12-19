@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class Response
+class HttpResponse
 {
     /**
      * @var int
@@ -29,9 +29,9 @@ class Response
 
     /**
      * @param int $code
-     * @return Response
+     * @return HttpResponse
      */
-    public function setStatusCode(int $code): Response
+    public function setStatusCode(int $code): HttpResponse
     {
         $this->statusCode = $code;
         return $this;
@@ -47,9 +47,9 @@ class Response
 
     /**
      * @param string $message
-     * @return Response
+     * @return HttpResponse
      */
-    public function setMessage(string $message): Response
+    public function setMessage(string $message): HttpResponse
     {
         $this->message = $message;
         return $this;
@@ -65,9 +65,9 @@ class Response
 
     /**
      * @param array $data
-     * @return Response
+     * @return HttpResponse
      */
-    public function setData(array $data): Response
+    public function setData(array $data): HttpResponse
     {
         $this->data = $data;
         return $this;

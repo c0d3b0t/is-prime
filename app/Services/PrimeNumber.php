@@ -13,16 +13,16 @@ class PrimeNumber
     private RequestedNumbersRepository $repo;
 
     /**
-     * @var Response
+     * @var HttpResponse
      */
-    private Response $response;
+    private HttpResponse $response;
 
     /**
      * PrimeNumber constructor.
      * @param RequestedNumbersRepository $repo
-     * @param Response $response
+     * @param HttpResponse $response
      */
-    public function __construct(RequestedNumbersRepository $repo, Response $response)
+    public function __construct(RequestedNumbersRepository $repo, HttpResponse $response)
     {
         $this->repo     = $repo;
         $this->response = $response;
@@ -59,9 +59,9 @@ class PrimeNumber
 
     /**
      * @param int $number
-     * @return Response
+     * @return HttpResponse
      */
-    public function store(int $number): Response
+    public function store(int $number): HttpResponse
     {
         $model = $this->repo->getByNumber($number);
 
@@ -75,9 +75,9 @@ class PrimeNumber
 
     /**
      * @param int $number
-     * @return Response
+     * @return HttpResponse
      */
-    public function createNew(int $number): Response
+    public function createNew(int $number): HttpResponse
     {
         $isPrime = $this->isPrime($number);
 
@@ -100,9 +100,9 @@ class PrimeNumber
     /**
      * @param RequestedNumber $model
      * @param int $number
-     * @return Response
+     * @return HttpResponse
      */
-    public function update(RequestedNumber $model, int $number): Response
+    public function update(RequestedNumber $model, int $number): HttpResponse
     {
         $isPrime = $this->isPrime($number);
 
@@ -136,9 +136,9 @@ class PrimeNumber
 
     /**
      * @param NumbersRange $range
-     * @return Response
+     * @return HttpResponse
      */
-    public function getAllByRange(NumbersRange $range): Response
+    public function getAllByRange(NumbersRange $range): HttpResponse
     {
         $numbers = $this->repo->getByRange($range, hasPrimesOnly: false);
 
@@ -149,9 +149,9 @@ class PrimeNumber
 
     /**
      * @param NumbersRange $range
-     * @return Response
+     * @return HttpResponse
      */
-    public function getPrimesByRange(NumbersRange $range): Response
+    public function getPrimesByRange(NumbersRange $range): HttpResponse
     {
         $numbers = $this->repo->getByRange($range, hasPrimesOnly: true);
 

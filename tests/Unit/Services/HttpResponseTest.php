@@ -2,21 +2,21 @@
 
 namespace Tests\Unit\Services;
 
-use App\Services\Response;
+use App\Services\HttpResponse;
 use Tests\TestCase;
 
-class ResponseTest extends TestCase
+class HttpResponseTest extends TestCase
 {
     /**
-     * @var Response
+     * @var HttpResponse
      */
-    private Response $response;
+    private HttpResponse $response;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->response = new Response();
+        $this->response = new HttpResponse();
     }
 
     public function testStatusCode()

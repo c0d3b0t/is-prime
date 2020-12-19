@@ -6,7 +6,7 @@ use App\Models\RequestedNumber;
 use App\Repositories\RequestedNumbersRepository;
 use App\Services\NumbersRange;
 use App\Services\PrimeNumber;
-use App\Services\Response;
+use App\Services\HttpResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
@@ -23,7 +23,7 @@ class PrimeNumberTest extends TestCase
 
         $this->service = new PrimeNumber(
             new RequestedNumbersRepository(new RequestedNumber()),
-            new Response()
+            new HttpResponse()
         );
     }
 
