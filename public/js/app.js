@@ -37654,7 +37654,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("form", { attrs: { action: "" } }, [
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col" }, [
+      _c("div", { staticClass: "col-8" }, [
         _c("input", {
           directives: [
             {
@@ -37668,7 +37668,7 @@ var render = function() {
           attrs: {
             type: "number",
             min: "1",
-            placeholder: "Please enter number"
+            placeholder: "Enter number to check if it's prime"
           },
           domProps: { value: _vm.number },
           on: {
@@ -37688,7 +37688,7 @@ var render = function() {
           : _vm._e()
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col" }, [
+      _c("div", { staticClass: "col-4" }, [
         _c(
           "button",
           {
@@ -37727,7 +37727,7 @@ var render = function() {
   return _c("div", [
     _c("form", { attrs: { action: "" } }, [
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col" }, [
+        _c("div", { staticClass: "col-3" }, [
           _c("input", {
             directives: [
               {
@@ -37751,7 +37751,7 @@ var render = function() {
           })
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col" }, [
+        _c("div", { staticClass: "col-3" }, [
           _c("input", {
             directives: [
               {
@@ -37775,7 +37775,7 @@ var render = function() {
           })
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col mt-2" }, [
+        _c("div", { staticClass: "col mt-2 col-3" }, [
           _c("input", {
             directives: [
               {
@@ -37817,7 +37817,7 @@ var render = function() {
           _c("label", { attrs: { for: "show_all" } }, [_vm._v("Show all")])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col" }, [
+        _c("div", { staticClass: "col-2" }, [
           _c(
             "button",
             {
@@ -37868,7 +37868,7 @@ var staticRenderFns = [
     return _c("thead", [
       _c("th", [_vm._v("Number")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Count")]),
+      _c("th", [_vm._v("Request Count")]),
       _vm._v(" "),
       _c("th", [_vm._v("Is Prime")])
     ])
@@ -37880,7 +37880,7 @@ var staticRenderFns = [
     return _c("tfoot", [
       _c("th", [_vm._v("Number")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Count")]),
+      _c("th", [_vm._v("Request Count")]),
       _vm._v(" "),
       _c("th", [_vm._v("Is Prime")])
     ])

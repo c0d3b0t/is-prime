@@ -2,17 +2,17 @@
     <div>
         <form action="">
             <div class="row">
-                <div class="col">
+                <div class="col-3">
                     <input type="number" v-model="fromNumber" min="1" class="form-control" placeholder="From number">
                 </div>
-                <div class="col">
+                <div class="col-3">
                     <input type="number" v-model="toNumber" min="1" class="form-control" placeholder="To number">
                 </div>
-                <div class="col mt-2">
+                <div class="col mt-2 col-3">
                     <input id="show_all" type="checkbox" v-model="showAll" min="1">
                     <label for="show_all">Show all</label>
                 </div>
-                <div class="col">
+                <div class="col-2">
                     <button class="btn btn-outline-primary" type="button" @click="listByRange">Submit</button>
                 </div>
             </div>
@@ -22,7 +22,7 @@
             <table class="table table-striped">
                 <thead>
                     <th>Number</th>
-                    <th>Count</th>
+                    <th>Request Count</th>
                     <th>Is Prime</th>
                 </thead>
                 <tbody>
@@ -34,7 +34,7 @@
                 </tbody>
                 <tfoot>
                     <th>Number</th>
-                    <th>Count</th>
+                    <th>Request Count</th>
                     <th>Is Prime</th>
                 </tfoot>
             </table>

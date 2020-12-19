@@ -42,7 +42,7 @@
                 <hr>
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-6 col-12">
+                        <div class="col-md-6 col-12 mb-4">
                             <is-prime-form></is-prime-form>
                         </div>
                         <div class="col-md-6 col-12">
