@@ -36,17 +36,18 @@ vendor/bin/sail npm install && npm run dev
 ```
 curl -X POST -F 'number=23' -H 'Accept: application/json' http://localhost/api/numbers/is-prime
 ```
-
+Returns an appropriate message based on if the given number is prime or no.
+Also stores the number in a database with "is_prime" flag and counts the number of requests.
 ### Get Primes By Range Endpoint
 ```
 curl -H 'Accept: application/json' 'http://localhost/api/numbers/prime-range?from=1&to=100'
 ```
-
+Returns a list of requested prime numbers in a given numbers range.
 ### Get All By Range Endpoint
 ```
 curl -H 'Accept: application/json' 'http://localhost/api/numbers/all-range?from=1&to=100'
 ```
-
+Returns a list of all (both primes and non-primes) requested numbers in a given numbers range.
 ## Run phpunit tests
 ```
 vendor/bin/sail test
